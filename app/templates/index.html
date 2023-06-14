@@ -31,9 +31,9 @@
                 <h2 class="popup-title">Login</h2>
                 <button class="button-close" data-attribute="popup-login">x</button>
                 <form class="popup-form" action="{{url_for('login')}}" method="post">
-                    <input name="email" type="email" class="form-input" id="input-email" placeholder="Email">
+                    <input name="email" type="email" class="form-input" id="input-email" placeholder="Email" required>
                     <span class="email-error"></span>
-                    <input name="password" type="password" class="form-input" id="input-password" placeholder="Senha" min="8">
+                    <input name="password" type="password" class="form-input" id="input-password" placeholder="Senha" min="8" required>
                     <span class="password-error"></span>
                     <button type="submit" id="button-submit-login" class="standard-button form-button">Realizar login</button>
                 </form>

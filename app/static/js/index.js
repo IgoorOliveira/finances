@@ -33,23 +33,25 @@ for(const buttonRegister of buttonsRegister) {
 }
 buttonTurnRegister.addEventListener("click", () => {turnStep(1, 2)});
 buttonSubmitLogin.addEventListener("click", (ev) =>{
-    ev.preventDefault();
     resetStyle();
     try {
         if(!validateEmail(inputEmail.value)) {
+            ev.preventDefault();
             error = new Error("Campo email inválido*");
             error.input = "email";
             throw error;
         }
         updateStyleInput("email", "sucess");
         if(!validatePassword(inputPassword.value)) {
+            ev.preventDefault();
             error = new Error("Campo senha inválido*");
             error.input = "password";
             throw error;
         }
-        updateStyle("password", "sucess");
+        updateStyleInput("password", "sucess");
     }
     catch(error) {
+        console.log(error)
         elementError = document.querySelector(`.${error.input}-error`);
         elementError.innerText = error.message;
         elementError.classList.add("error");
@@ -58,8 +60,10 @@ buttonSubmitLogin.addEventListener("click", (ev) =>{
 })
 
 setTimeout(()=>{
-    document.querySelector(".alert").style.animation = "exit-alert 2s";
-    setTimeout(() =>{document.querySelector(".alert").style.display = "none"}, 1500);
+    if(document.querySelector(".alert")) {
+        document.querySelector(".alert").style.animation = "exit-alert 2s";
+        setTimeout(() =>{document.querySelector(".alert").style.display = "none"}, 1500);
+    }
 
 }, 5000)
 function validateEmail(email) {
@@ -67,11 +71,7 @@ function validateEmail(email) {
 }
 
 function validatePassword(password) {
-    return !(password.length > 8 || 
-        !password.match(/[a-z]/) || 
-        !password.match(/[A-Z]/) || 
-        !password.match(/[0-9]/) ||
-        !password.match(/[^a-zA-Z0-9\s]/));
+    return password.match(/^(?=.*[A-Z])(?=.*\d).{8,}$/);
 }
 
 function updateStyleInput(element, result) {
