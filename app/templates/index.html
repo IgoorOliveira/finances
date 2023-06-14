@@ -35,7 +35,7 @@
                     <span class="email-error"></span>
                     <input name="password" type="password" class="form-input" id="input-password" placeholder="Senha" min="8">
                     <span class="password-error"></span>
-                    <button type="submit" id="button-submit-login " class="standard-button form-button">Realizar login</button>
+                    <button type="submit" id="button-submit-login" class="standard-button form-button">Realizar login</button>
                 </form>
                 <p id="text-not-have-account">Não tem conta? <button class="button-turn-register" id="text-register">Registrar-se</button></p>
             </div>
@@ -56,10 +56,23 @@
                     <button type="submit" class="standard-button form-button">Realizar Registro</button>
                 </form>
             </div>
-
-            <div class="popup" id="popup-warnings">
-                <p>{{answer}}</p>
-            </div>
         </div>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        {% if message["validation"] == true %}
+        <div class="alert alert-check">
+            <img class="icon-check" src="../static/css/assets/circle-check.svg" alt="">
+            <p>{{message["answer"]}}</p>
+        </div>
+        {% else %}
+        <div class="alert alert-error">
+            <img class="icon-error" src="../static/css/assets/circle-erro.svg" alt="">
+            <p>{{message["answer"]}}</p>
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
     </body>
 </html>

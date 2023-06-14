@@ -212,14 +212,28 @@ main {
     color: red;
     font-size: 0.8em;
 }
-#popup-warnings {
-    position: absolute;
-    top: 2em;
-    left: 30%;
+.alert {
+    position: fixed;
+    top: 5em;
+    right: 1em;
+
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background-color: white;
+    color: black;
+    padding: 1em 2em;
+    border-radius: 5px;
+    font-size: 1em;
+    animation: enter-alert 1s;
 }
-#popup-warnings > p {
-    font-size: 1.2em;
+.alert-check {
+    border-left: 10px solid green;
 }
+.alert-error {
+    border-left: 10px solid red;
+}
+
 @keyframes effect-popup {
     from {
         transform: translateY(-100%);
@@ -228,8 +242,19 @@ main {
     to {
         transform: none;
     }
-    
 }
+@keyframes enter-alert {
+    from {
+        right: -200%;
+    }
+}
+@keyframes exit-alert {
+    to {
+        right: -200%;
+    }
+}
+
+
 
 
 

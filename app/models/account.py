@@ -11,9 +11,9 @@ class Account:
     if self.is_email_valid(email) and self.is_password_valid(password):
       self.cursor.execute("INSERT INTO account (email, password, balance) VALUES (?, ?, ?);", (email, password, balance))
       self.conn.commit()
-      return {"answer": "Conta criada com sucesso!",
+      return {"message": "Conta criada com sucesso!",
               "validation": True}
-    return {"answer": "Dados incorretos!",
+    return {"message": "Dados incorretos!",
               "validation": False}
         
   def is_email_valid(self, email):
@@ -25,8 +25,8 @@ class Account:
   def login(self, email, password):
      self.cursor.execute("SELECT * FROM account WHERE email == ? and password == ?;",(email, password)) 
      if(self.cursor.fetchone()):
-       return {"answer": "Login realizado com sucesso!",
+       return {"message": "Login realizado com sucesso!",
               "validation": True}
-     return {"answer": "Login não realizado!",
+     return {"message": "Login não realizado!",
              "validation": False}
   

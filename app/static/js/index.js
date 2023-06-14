@@ -9,8 +9,6 @@ inputEmail = document.getElementById("input-email");
 inputPassword = document.getElementById("input-password");
 buttonSubmitLogin = document.getElementById("button-submit-login");
 
-popupWarnings = document.getElementById("popup-warnings");
-
 document.getElementById("button-login").addEventListener("click", () =>{
     popupWrapper.classList.add("active");
     popupLogin.classList.add("active-popup");
@@ -33,7 +31,7 @@ for(const buttonRegister of buttonsRegister) {
 
     })
 }
-buttonTurnRegister.addEventListener("click", () => {turnStep(1, 2)})
+buttonTurnRegister.addEventListener("click", () => {turnStep(1, 2)});
 buttonSubmitLogin.addEventListener("click", (ev) =>{
     ev.preventDefault();
     resetStyle();
@@ -59,7 +57,11 @@ buttonSubmitLogin.addEventListener("click", (ev) =>{
     }
 })
 
+setTimeout(()=>{
+    document.querySelector(".alert").style.animation = "exit-alert 2s";
+    setTimeout(() =>{document.querySelector(".alert").style.display = "none"}, 1500);
 
+}, 5000)
 function validateEmail(email) {
     return email.match(/^[\w\.]{2,}@[a-zA-Z]{2,}\.[a-zA-Z]{2,}/g);
 }
