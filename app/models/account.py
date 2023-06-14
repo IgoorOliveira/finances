@@ -1,4 +1,6 @@
 import re
+from sqlite3 import IntegrityError
+
 class Account:
   def __init__(self, conn):
     self.email = ""
@@ -8,14 +10,21 @@ class Account:
     self.cursor = self.conn.cursor()
     
   def create_account(self, email, password, balance):
-    if self.is_email_valid(email) and self.is_password_valid(password):
-      self.cursor.execute("INSERT INTO account (email, password, balance) VALUES (?, ?, ?);", (email, password, balance))
-      self.conn.commit()
-      return {"message": "Conta criada com sucesso!",
-              "validation": True}
-    return {"message": "Dados incorretos!",
-              "validation": False}
-        
+    try:
+      if self.is_email_valid(email) and self.is_password_valid(password):
+        self.cursor.execute("INSERT INTO account (email, password, balance) VALUES (?, ?, ?);", (email, password, balance))
+        self.conn.commit()
+        return {"message": "Conta criada com sucesso!",
+                "validation": True}
+      return {"message": "Dados incorretos!",
+                "validation": False}
+    except IntegrityError:
+      self.cursor.execute("SELECT * FROM account WHERE email == ?;",(email,)) 
+      if(self.cursor.fetchone()):
+        return {"message": "Email já cadastrado",
+                "validation": False}
+      
+          
   def is_email_valid(self, email):
     regex = r'^[A-Za-z0-9._+-]+@(gmail|hotmail|outlook)+\.[a-zA-Z]{2,}$'
     return re.match(regex, email)
