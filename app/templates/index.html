@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/config.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <script src="{{url_for('static', filename='js/index.js')}}" defer></script>
+    <title>Homepage</title>
+</head>
+    <body>
+        <header>
+            <h1 id="header-title">Finanças</h1>
+            <nav>
+                <button id="button-login">Login</button>
+                <button class="standard-button button-register">Registrar-se</button>
+            </nav>
+        </header>
+        <main>
+           <img class="img-coins" src="../static/css/assets/coins.png" alt="">
+           <div class="content-wrapper">
+                <h1 id="effect-text">Faça da sua vida financeira uma <span>obra-prima</span></h1>
+                <p class="second-text"> Descubra a arte de organizar seus gastos com o nosso aplicativo</p>
+                <button class="standard-button button-register button-register-2">Comece hoje</button>
+           </div>
+        </main>
+    
+        <div class="popup-wrapper">
+            <div class="popup step1" id="popup-login">
+                <h2 class="popup-title">Login</h2>
+                <button class="button-close" data-attribute="popup-login">x</button>
+                <form class="popup-form" action="{{url_for('login')}}" method="post">
+                    <input name="email" type="email" class="form-input" id="input-email" placeholder="Email">
+                    <span class="email-error"></span>
+                    <input name="password" type="password" class="form-input" id="input-password" placeholder="Senha" min="8">
+                    <span class="password-error"></span>
+                    <button type="submit" id="button-submit-login " class="standard-button form-button">Realizar login</button>
+                </form>
+                <p id="text-not-have-account">Não tem conta? <button class="button-turn-register" id="text-register">Registrar-se</button></p>
+            </div>
+    
+    
+    
+            <div class="popup step2" id="popup-register">
+                <h2 class="popup-title">Register</h2>
+                <button class="button-close" data-attribute="popup-register">x</button>
+                <form class="popup-form" action="{{url_for('result')}}" method="post">
+                    <input type="text" name="first-name" class="form-input" id="input-first-name" placeholder="First name">
+                    <input type="text" name="last-name" class="form-input" id="input-last-name" placeholder="Last name">
+                    <input type="date" class="form-input" id="input-date-birthday" placeholder="Data de nascimento" >
+                    <input type="email" name="email" class="form-input" placeholder="Email">
+                    <span class="email-error"></span>
+                    <input type="password" name="password" class="form-input" placeholder="Senha" min="8">
+                    <span class="password-error"></span>
+                    <button type="submit" class="standard-button form-button">Realizar Registro</button>
+                </form>
+            </div>
+
+            <div class="popup" id="popup-warnings">
+                <p>{{answer}}</p>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,238 @@
+body {
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background-color: white;
+    padding: 1em 2em;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+#header-title {
+    cursor: pointer;
+    color: #2235B3;
+}
+header > nav {
+    display: flex;
+    gap: 20px;
+}
+
+.standard-button {
+    background-color: #2235B3;
+    color: white;
+    padding: 1em;
+    border-radius: 5px;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
+}
+#button-login {
+    position: relative;
+    padding: 1em;
+    overflow: hidden;
+}
+#button-login::before {
+    content: "";
+    position: absolute;
+    background-color: black;
+    bottom: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+}
+
+#button-login:hover::before {
+    transition: all 0.3s ease-in-out;
+    left: 0;
+}
+
+main {
+    position: relative;
+    width: 100%;
+    background-color: #4352b7;
+    flex-grow: 1;
+}
+
+.img-coins {
+    width: 600px;
+    height: 550px;
+}
+
+.content-wrapper {
+    position: absolute;
+    right: 100px;
+    top: 150px;
+    width: 450px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+#effect-text {
+    font-size: 2em;
+}
+#effect-text > span {
+    color: gold;
+}
+.second-text {
+    margin-top: 20px;
+    font-size: 1.2em;
+    color: #1b1b1b;
+}
+.button-register-2 {
+    padding: 1em 1.5em;
+    margin-top: 30px;
+    font-size: 1.2em;
+}
+.button-register-2:hover {
+    transition: all 0.3s ease-in-out;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+}
+.popup-wrapper {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+}
+.popup {
+    display: none;
+    position: relative;
+    width: 30%;
+    background-color: white;
+    border-radius: 5px;
+    padding: 2em;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
+    animation: effect-popup 0.5s;
+}
+.popup .button-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+    font-size: 1.3em;
+    font-weight: 600;
+    padding: 6px 9px;
+    border-radius: 50%;
+}
+.popup .button-close:hover {
+    transition: all 0.3s ease-in-out;
+    color: red;
+}
+.popup-title {
+    margin-bottom: 20px;
+}
+.popup-form{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.form-input{
+    outline: none;
+    border: 1px solid black;
+    width: 100%;
+    border-radius: 5px;
+    padding: 0.8em;
+}
+
+.form-button {
+    position: relative;
+    width: 100%;
+    padding: 1em 1.5em;
+    font-size: 0.9em;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.form-button::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: -100%;
+    width: 100%;
+    height: 100%;
+    background-color: gold;
+    z-index: -1;
+}
+.form-button:hover::before {
+    transition: all 0.3s ease-in-out;
+    top: 0;
+}
+.form-button::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: -100%;
+    width: 100%;
+    height: 2%;
+    background-color: rgba(255, 255, 255, 0.4);
+    z-index: -1;
+    box-shadow: 2px 2px 10px 15px rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(7px);
+}
+.form-button:hover::after {
+    transition: all .8s ease-in-out;
+    top: 130%;
+}
+.form-button:hover {
+    transition: all 0.3s ease-in-out;
+    color: black;
+}
+#text-not-have-account {
+    font-size: 1em;
+    margin-top: 20px;
+    text-align: center;
+}
+#text-register {
+    font-size: 1em;
+    color: #2235B3;
+    font-weight: bolder;
+}
+
+#input-first-name, 
+#input-last-name {
+    width: calc(50% - 5px);
+}
+.active {
+    display: flex;
+}
+.active-popup {
+    display: block;
+}
+.error {
+    color: red;
+    font-size: 0.8em;
+}
+#popup-warnings {
+    position: absolute;
+    top: 2em;
+    left: 30%;
+}
+#popup-warnings > p {
+    font-size: 1.2em;
+}
+@keyframes effect-popup {
+    from {
+        transform: translateY(-100%);
+        transition: all 0.3 ease-in-out;
+    }
+    to {
+        transform: none;
+    }
+    
+}
+
+
+
+
+
+
