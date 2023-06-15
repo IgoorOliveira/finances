@@ -48,6 +48,6 @@ def login():
 
 @app.route("/dashboard")
 def dashboard():
-    sleep(10)
+    
     return render_template("dashboard.html", greetings=showGreetings())
 

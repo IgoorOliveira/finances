@@ -18,6 +18,27 @@ def create_database(base):
                                          "date_birthday" TEXT NOT NULL,
                                          PRIMARY KEY("idUser" AUTOINCREMENT));
     """)
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS "type"("idType" INTEGER NOT NULL,
+                                      "name" TEXT NOT NULL,
+                                      PRIMARY KEY("idType") AUTOINCREMENT)
+    """)
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS "category"("idCategory" INTEGER NOT NULL,
+                                         "name" TEXT NOT NULL,
+                                         PRIMARY KEY("idCategory" AUTOINCREMENT))
+    """)
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS "transaction"("idTransaction" INTEGER NOT NULL,
+                                              "value" REAL NOT NULL,
+                                              "data" TEXT NOT NULL,
+                                              "idAccount" INT NOT NULL,
+                                              "idCategory" INT NOT NULL,
+                                              PRIMARY KEY("idTransaction" AUTOINCREMENT),
+                                              FOREIGN KEY("idAccount") REFERENCES "account"("idAccount"),
+                                              FOREIGN KEY("idCategory") REFERENCES "category"("idCategory")
+                                              )
+    """)
    
     return conn
   except Error as e:
