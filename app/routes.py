@@ -1,10 +1,11 @@
 from app import app
-from flask import Flask, render_template, request, flash, redirect
+from flask import Flask, render_template, request, flash, redirect, jsonify
 from app.models.schema import create_database
 from app.models.account import Account
 from app.models.users import Users
+from app.models.transaction import Transaction
 from app.greetings import showGreetings
-from time import sleep
+from datetime import date
 
 
 database = "./app/banco.db"
@@ -21,9 +22,8 @@ def register():
 
     if request.method == "POST":
         answerAccount = account.create_account(request.form["email"], request.form["password"], 0)
-        users.create_user(request.form["first-name"], request.form["last-name"], "2003-02-01")
-
         if answerAccount["validation"]:
+            users.create_user(request.form["first-name"], request.form["last-name"], request.form["date-birthday"], account.lastRowId())
             flash({"answer": answerAccount["message"],
                    "validation": True})
         else:
@@ -48,6 +48,10 @@ def login():
 
 @app.route("/dashboard")
 def dashboard():
-    
     return render_template("dashboard.html", greetings=showGreetings())
 
+@app.route("/transactions")
+def get_transactions():
+    connection = create_database(database)
+    transaction = Transaction(connection)
+    return jsonify(transaction.getTransactions())

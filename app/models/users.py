@@ -8,8 +8,8 @@ class Users:
     self.conn = conn
     self.cursor = self.conn.cursor()
 
-  def create_user(self, first_name, last_name, data_nasc):
-    self.cursor.execute("INSERT INTO users (fullname, date_birthday) VALUES (?, ?);", (first_name + " " + last_name, data_nasc))
+  def create_user(self, first_name, last_name, data_nasc, idAccount):
+    self.cursor.execute("INSERT INTO users (fullname, date_birthday, idAccount) VALUES (?, ?, ?);", (first_name + " " + last_name, data_nasc, idAccount))
     self.conn.commit()
   def is_valid_name(self, name):
     return name.isdigit() and len(name) > 3

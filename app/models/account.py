@@ -38,4 +38,6 @@ class Account:
               "validation": True}
      return {"message": "Login não realizado!",
              "validation": False}
+  def lastRowId(self):
+    return self.cursor.lastrowid
   

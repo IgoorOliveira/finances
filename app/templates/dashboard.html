@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{url_for('static', filename='css/config.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/dashboard.css')}}">
-    <script src="{{url_for('static', filename='css/dashboard.css')}}" defer></script>
+    <script src="{{url_for('static', filename='js/dashboard.js')}}" defer></script>
     <title>Dashboard</title>
 </head>
 <body>
@@ -13,19 +13,30 @@
         <h2 id="bar-logo">Finanças</h2>
         <nav id="bar-nav">
             <li class="bar-nav-top">
-                <button class="bar-nav-button">Transaction</button>
-                <button class="bar-nav-button">Account</button>
+                <button class="bar-nav-button">
+                    <img src="../static/css/assets/icon-coin.svg" alt="Icone de moedas">
+                    <span>Transações</span>
+                </button>
+                <button class="bar-nav-button">
+                    <img src="../static/css/assets/icon-account.svg" alt="Icone de um boneco">
+                    <span>Perfil</span>
+                </button>
             </li>
             <li id="bar-nav-bottom">
-                <button class="bar-nav-button">Settings</button>
-                <a href="/"><button class="bar-nav-button">Exit</button></a>
+                <button class="bar-nav-button">
+                    <img src="../static/css/assets/icon-setting.svg" alt="Icone de uma engrenagem">
+                    <span>Ajustes</span>
+                </button>
+                <a href="/"><button class="bar-nav-button">
+                    <img src="../static/css/assets/icon-exit.svg" alt="Icone de uma porta de saída">
+                    <span>Sair</span>
+                </button></a>
             </li>
         </nav>
     </div>
     <div class="step">
         <header>
-            <h2></h2>
-            <h2>{{greetings.message}} Igor{{greetings.icon}}</h2>
+            <h3>{{greetings.message}} Igor{{greetings.icon}}</h3>
         </header>
         <main id="dashboard">
             <div class="box box1">
