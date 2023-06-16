@@ -207,6 +207,8 @@ header {
     color: black;
     border-radius: 5px;
 }
-
+#menu-type button:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
 
 

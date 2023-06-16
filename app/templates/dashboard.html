@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{url_for('static', filename='css/config.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/dashboard.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/popup.css')}}">
     <script src="{{url_for('static', filename='js/dashboard.js')}}" defer></script>
     <title>Dashboard</title>
 </head>
@@ -69,6 +70,30 @@
             <span>Saída</span>
         </button>
     </nav>
+    <div class="popup-wrapper">
+        <div class="popup">
+            <form action="" class="popup-form">
+                <h2 class="popup-title">Transação</h2>
+                <label class="input-container" for="input-description">
+                    <img class="input-icon" id="input-description" src="../static/css/assets/icon-description.svg" alt="">
+                    <input type="text" name="title" class="form-input" placeholder="Descrição">
+                </label>
+                <label class="input-container" for="input-value">
+                    <img class="input-icon" src="../static/css/assets/dollar.svg" alt="">
+                    <input type="number" id="input-vale" name="value" class="form-input" placeholder="Valor">
+                </label>
+                <label class="input-container" for="input-date-transaction">
+                    <img class="input-icon" id="input-date-transaction" src="../static/css/assets/calendar.svg" alt="">
+                    <input type="date" name="date-transaction" class="form-input" placeholder="Data de transação">
+                </label>
+                <div class="button-container">
+                    <button type="menu" class="button-form button-cancel">Cancelar</button>
+                    <button type="submit" class="button-form button-save">Salvar</button>
+                </div>
+                
+            </form>
+        </div>
+    </div>
 </body>
 </html>
 
