@@ -13,5 +13,8 @@ class Users:
     self.conn.commit()
   def is_valid_name(self, name):
     return name.isdigit() and len(name) > 3
+  def get_name(self, idAccount):
+    self.cursor.execute("SELECT u.fullname FROM users u INNER JOIN account a ON u.idAccount = a.idAccount WHERE a.idAccount = ?;", (idAccount, ))
+    return self.cursor.fetchone()[0]
   
     

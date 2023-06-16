@@ -36,7 +36,8 @@
     </div>
     <div class="step">
         <header>
-            <h3>{{greetings.message}} Igor{{greetings.icon}}</h3>
+            <h3>{{greetings.message}}, {{name}}{{greetings.icon}}</h3>
+            <button id="button-add-transaction">Adicionar transação</button>
         </header>
         <main id="dashboard">
             <div class="box box1">
@@ -58,6 +59,16 @@
             </div>
         </main>
     </div>
+    <nav id="menu-type">
+        <button>
+            <img class="icon" src="../static/css/assets/arrow-deposit.svg" alt="Icone de entrada de dinheiro">
+            <span>Entrada</span>
+        </button>
+        <button>
+            <img class="icon" src="../static/css/assets/arrow-withdraw.svg" alt="Icone de saída de dinheiro">
+            <span>Saída</span>
+        </button>
+    </nav>
 </body>
 </html>
 

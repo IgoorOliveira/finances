@@ -32,12 +32,16 @@ class Account:
     return len(password) >= 8 and password.isalnum()
     
   def login(self, email, password):
-     self.cursor.execute("SELECT * FROM account WHERE email == ? and password == ?;",(email, password)) 
-     if(self.cursor.fetchone()):
-       return {"message": "Login realizado com sucesso!",
-              "validation": True}
-     return {"message": "Login não realizado!",
-             "validation": False}
+    self.cursor.execute("SELECT * FROM account WHERE email == ? and password == ?;",(email, password)) 
+    if(self.cursor.fetchone()):
+      return {"message": "Login realizado com sucesso!",
+            "validation": True}
+    return {"message": "Login não realizado!",
+            "validation": False}
   def lastRowId(self):
     return self.cursor.lastrowid
+  def get_id_account(self, email):
+    self.cursor.execute("SELECT idAccount FROM account WHERE email = ?;", (email, ))
+    return self.cursor.fetchone()[0]
+
   

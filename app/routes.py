@@ -1,5 +1,5 @@
 from app import app
-from flask import Flask, render_template, request, flash, redirect, jsonify
+from flask import Flask, render_template, request, flash, redirect, jsonify, url_for
 from app.models.schema import create_database
 from app.models.account import Account
 from app.models.users import Users
@@ -35,20 +35,26 @@ def register():
 def login():
     connection = create_database(database)
     account = Account(connection)
+    users = Users(connection)
 
     if request.method == "POST":
-        answerAccount = account.login(request.form["email"], request.form["password"])
+        email = request.form["email"]
+        password = request.form["password"]
+        answerAccount = account.login(email, password)
+
         if answerAccount["validation"]:
+            idAccount = account.get_id_account(email)
+            name = users.get_name(idAccount).split()[0]
             flash({"answer": answerAccount["message"],
                     "validation": True})
-            return redirect("/dashboard")
+            return redirect(url_for("dashboard", name=name))
         flash({"answer": answerAccount["message"],
                 "validation": False})
     return redirect("/")
 
-@app.route("/dashboard")
-def dashboard():
-    return render_template("dashboard.html", greetings=showGreetings())
+@app.route("/dashboard/<name>")
+def dashboard(name):
+    return render_template("dashboard.html", greetings=showGreetings(), name=name)
 
 @app.route("/transactions")
 def get_transactions():

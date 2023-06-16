@@ -16,19 +16,26 @@ function createTitle(titleTransaction) {
     title.classList.add("cardboard-title");
     return title
 }
+function createArrow(typeTransaction) {
+    const img = document.createElement("img");
+    img.src = `../static/css/assets/arrow-${typeTransaction}.svg`;
+    img.classList.add("icon");
+    return img;
+}
 
-function createValue(valueTransaaction) {
+function createValue(valueTransaction) {
     const value = document.createElement("p");
-    value.innerText = `R$${valueTransaaction}`;
+    value.innerText = `R$${valueTransaction}`;
     value.classList.add("cardboard-value");
     return value;
 }
 
 function renderCardboard(transactions) {
     const cardboard = createCardboard();
-    const title = createTitle(transactions[3]);
+    const img = createArrow(transactions[2]);
+    const title = createTitle(transactions[4]);
     const value = createValue(transactions[1]);
-    cardboard.append(title, value);
+    cardboard.append(img, title, value);
     document.querySelector(".box-bottom").appendChild(cardboard);
 }
 async function updateTransactions(){
