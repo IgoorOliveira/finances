@@ -17,22 +17,20 @@ def create_database(base):
     CREATE TABLE IF NOT EXISTS "users" ("idUser" INTEGER NOT NULL,
                                          "fullname" TEXT NOT NULL,
                                          "date_birthday" TEXT NOT NULL,
-                                         "idType" INTEGER NOT NULL,
                                          "idAccount" INTEGER NOT NULL,
                                          PRIMARY KEY("idUser" AUTOINCREMENT),
-                                         FOREIGN KEY("idAccount") REFERENCES "account" ("idAccount"),
-                                         FOREIGN KEY("idType") REFERENCES "type" ("idType"));
+                                         FOREIGN KEY("idAccount") REFERENCES "account" ("idAccount"));
     """)
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS "category"("idCategory" INTEGER NOT NULL,
-                                         "name" TEXT NOT NULL,
+                                         "name" TEXT UNIQUE NOT NULL,
                                          "idType" INTEGER NOT NULL,
                                          PRIMARY KEY("idCategory" AUTOINCREMENT),
                                          FOREIGN KEY("idType") REFERENCES "type" ("idType"))
     """)
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS "type"("idType" INTEGER NOT NULL,
-                                      "name" TEXT NOT NULL,
+                                      "name" TEXT UNIQUE NOT NULL,
                                       PRIMARY KEY("idType" AUTOINCREMENT))
     """)
     cursor.execute("""
@@ -42,10 +40,11 @@ def create_database(base):
                                               "data" TEXT NOT NULL,
                                               "idAccount" INT NOT NULL,
                                               "idCategory" INT NOT NULL,
+                                              "idType" INTEGER NOT NULL,
                                               PRIMARY KEY("idTransaction" AUTOINCREMENT),
                                               FOREIGN KEY("idAccount") REFERENCES "account"("idAccount"),
-                                              FOREIGN KEY("idCategory") REFERENCES "category"("idCategory")
-                                              )
+                                              FOREIGN KEY("idCategory") REFERENCES "category"("idCategory"),
+                                              FOREIGN KEY("idType") REFERENCES "type" ("idType"))
     """)
    
     return conn

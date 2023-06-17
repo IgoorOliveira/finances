@@ -37,12 +37,12 @@
 }
 .input-container .form-input{
     outline: none;
-    padding: 0.8em;
+    padding: 0.7em;
     flex-grow: 1;
 }
 .input-container .input-icon {
     background-color: rgb(182, 182, 182);
-    padding: 0.8em;
+    padding: 0.7em;
     border-radius: 5px 0 0 5px;
 }
 .button-container {
@@ -55,7 +55,7 @@
 }
 .button-container .button-form {
     width: 25%;
-    padding: 0.5em 1em;
+    padding: 0.7em 1em;
     border-radius: 5px;
     color: white;
 }
