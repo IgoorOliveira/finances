@@ -1,0 +1,35 @@
+.alert {
+    position: fixed;
+    top: 5em;
+    right: 1em;
+
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background-color: white;
+    color: black;
+    padding: 1em 2em;
+    border-radius: 5px;
+    font-size: 1em;
+    animation: enter-alert 1s;
+}
+.alert-check {
+    border-left: 10px solid green;
+}
+.alert-error {
+    border-left: 10px solid red;
+}
+.icon-alert {
+    width: 25px;
+    height: 25px;
+}
+@keyframes enter-alert {
+    from {
+        right: -200%;
+    }
+}
+@keyframes exit-alert {
+    to {
+        right: -200%;
+    }
+}

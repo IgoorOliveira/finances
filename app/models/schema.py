@@ -36,10 +36,9 @@ def create_database(base):
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS "transaction"("idTransaction" INTEGER NOT NULL,
                                               "value" REAL NOT NULL,
-                                              "type" TEXT NOT NULL,
                                               "data" TEXT NOT NULL,
-                                              "idAccount" INT NOT NULL,
-                                              "idCategory" INT NOT NULL,
+                                              "idAccount" INTEGER NOT NULL,
+                                              "idCategory" INTEGER NOT NULL,
                                               "idType" INTEGER NOT NULL,
                                               PRIMARY KEY("idTransaction" AUTOINCREMENT),
                                               FOREIGN KEY("idAccount") REFERENCES "account"("idAccount"),

@@ -4,14 +4,14 @@ from app.models.schema import create_database
 from app.models.account import Account
 from app.models.users import Users
 from app.models.transaction import Transaction
+from app.models.category import Category
 from app.greetings import showGreetings
-from datetime import date
-
 
 database = "./app/banco.db"
 
 @app.route('/', methods=["GET", "POST"])
 def index():
+    
     return render_template("index.html")
 
 @app.route('/register', methods=["POST"])
@@ -60,4 +60,24 @@ def dashboard(name):
 def get_transactions():
     connection = create_database(database)
     transaction = Transaction(connection)
+   
     return jsonify(transaction.getTransactions())
+
+@app.route("/transaction/add")
+def create_transaction():
+    connection = create_database(database)
+    transaction = Transaction(connection)
+
+@app.route("/transaction/delete")
+def delete_transaction():
+    connection = create_database(database)
+    transaction = Transaction(connection)
+
+@app.route("/categories/<idType>")
+def get_categories(idType):
+    connection = create_database(database)
+    categories = Category(connection)
+    return jsonify(categories.get_categories(idType))
+
+
+

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{url_for('static', filename='css/config.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/alert.css')}}">
     <script src="{{url_for('static', filename='js/index.js')}}" defer></script>
     <title>Homepage</title>
 </head>
@@ -62,12 +63,12 @@
         {% for message in messages %}
         {% if message["validation"] %}
         <div class="alert alert-check">
-            <img class="icon-check" src="../static/css/assets/circle-check.svg" alt="">
+            <img class="icon-alert" src="../static/css/assets/circle-check.svg" alt="Icone de sucesso">
             <p>{{message["answer"]}}</p>
         </div>
         {% else %}
         <div class="alert alert-error">
-            <img class="icon-error" src="../static/css/assets/circle-erro.svg" alt="">
+            <img class="icon-alert" src="../static/css/assets/circle-erro.svg" alt="Icone de erro">
             <p>{{message["answer"]}}</p>
         </div>
         {% endif %}
