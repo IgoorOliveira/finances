@@ -32,7 +32,7 @@ function createCardboard() {
 
 
 function createTitle(titleTransaction) {
-    const title = document.createElement("h3");
+    const title = document.createElement("p");
     title.innerText = titleTransaction;
     title.classList.add("cardboard-title");
     return title;
@@ -50,10 +50,12 @@ function createIcon(nameCategory) {
     return img;
 }
 
-function createValue(valueTransaction) {
+function createValue(valueTransaction, idType) {
     const value = document.createElement("p");
+    color = idType == 1? "green": "red"
     value.innerText = `R$${valueTransaction}`;
-    value.classList.add("cardboard-value");
+    value.style.color = color;
+    value.style.fontWeight = 800
     return value;
 }
 
