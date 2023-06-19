@@ -1,5 +1,8 @@
 import re
 from sqlite3 import IntegrityError
+from app.models.schema import create_database
+from flask_login import UserMixin
+database = "./app/banco.db"
 
 class Account:
   def __init__(self, conn):
@@ -40,8 +43,27 @@ class Account:
             "validation": False}
   def lastRowId(self):
     return self.cursor.lastrowid
-  def get_id_account(self, email):
-    self.cursor.execute("SELECT idAccount FROM account WHERE email = ?;", (email, ))
-    return self.cursor.fetchone()[0]
+  def get_account_by_email(self, email):
+    self.cursor.execute("SELECT a.idAccount, a.email, u.fullname FROM account a INNER JOIN users u ON a.idAccount = u.idAccount WHERE a.email = ?;", (email,))
+    return self.cursor.fetchone()
+  
+
+class Object_account(UserMixin):
+  def __init__(self, idAccount, email, fullname):
+    self.id = idAccount
+    self.email = email
+    self.fullname = fullname
+
+  @staticmethod
+  def get_account_by_id(idAccount):
+    cursor = create_database(database).execute("SELECT a.idAccount, a.email, u.fullname FROM account a INNER JOIN users u ON a.idAccount = u.idAccount WHERE a.idAccount = ?;", (idAccount, ))
+    result = cursor.fetchone()
+    if result:
+      return Object_account(result[0], result[1], result[2])
+    else:
+      return None
+  def get_id(self):
+      return str(self.id)
+
 
   

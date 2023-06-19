@@ -65,7 +65,7 @@ setTimeout(()=>{
         setTimeout(() =>{document.querySelector(".alert").style.display = "none"}, 1500);
     }
 
-}, 5000)
+}, 3000)
 function validateEmail(email) {
     return email.match(/^[\w\.]{2,}@[a-zA-Z]{2,}\.[a-zA-Z]{2,}/g);
 }

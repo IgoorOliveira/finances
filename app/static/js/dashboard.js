@@ -106,6 +106,6 @@ setTimeout(()=>{
         setTimeout(() =>{document.querySelector(".alert").style.display = "none"}, 1500);
     }
 
-}, 5000)
+}, 3000)
 
 document.addEventListener("DOMContentLoaded", updateTransactions);

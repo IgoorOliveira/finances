@@ -1,7 +1,8 @@
 from app import app
 from flask import Flask, render_template, request, flash, redirect, jsonify, url_for
+from flask_login import LoginManager, login_required, logout_user, login_user, current_user
 from app.models.schema import create_database
-from app.models.account import Account
+from app.models.account import Account, Object_account
 from app.models.users import Users
 from app.models.transaction import Transaction
 from app.models.category import Category
@@ -9,9 +10,22 @@ from app.greetings import showGreetings
 
 database = "./app/banco.db"
 
+lm = LoginManager()
+lm.init_app(app)
+
+@lm.user_loader
+def load_user(idAccount):
+    return Object_account.get_account_by_id(idAccount)
+
+@lm.unauthorized_handler
+def unauthorized():
+    flash({"answer": "Necessário realizar login",
+                   "validation": False})
+    return redirect("/")
+
 @app.route('/', methods=["GET", "POST"])
 def index():
-    
+
     return render_template("index.html")
 
 @app.route('/register', methods=["POST"])
@@ -43,18 +57,27 @@ def login():
         answerAccount = account.login(email, password)
 
         if answerAccount["validation"]:
-            idAccount = account.get_id_account(email)
-            name = users.get_name(idAccount).split()[0]
+            tuplaAccount = account.get_account_by_email(email)
+            login_user(Object_account(tuplaAccount[0], tuplaAccount[1], tuplaAccount[2]))
             flash({"answer": answerAccount["message"],
                     "validation": True})
-            return redirect(url_for("dashboard", name=name))
+            return redirect(url_for("dashboard"))
         flash({"answer": answerAccount["message"],
                 "validation": False})
     return redirect("/")
 
-@app.route("/dashboard/<name>")
-def dashboard(name):
-    return render_template("dashboard.html", greetings=showGreetings(), name=name)
+@app.route("/dashboard")
+@login_required
+def dashboard():
+    if current_user.is_authenticated:
+        return render_template("dashboard.html", greetings=showGreetings(), current_user=current_user.fullname)
+    return redirect("/")
+
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return redirect("/")
 
 @app.route("/transactions")
 def get_transactions():

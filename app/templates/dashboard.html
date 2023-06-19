@@ -29,16 +29,18 @@
                     <img src="../static/css/assets/icon-setting.svg" alt="Icone de uma engrenagem">
                     <span>Ajustes</span>
                 </button>
-                <a href="/"><button class="bar-nav-button">
-                    <img src="../static/css/assets/icon-exit.svg" alt="Icone de uma porta de saída">
-                    <span>Sair</span>
-                </button></a>
+                <a href="{{url_for('logout')}}">
+                    <button type="button" class="bar-nav-button">
+                        <img src="../static/css/assets/icon-exit.svg" alt="Icone de uma porta de saída">
+                        <span>Sair</span>
+                    </button>
+                </a>
             </li>
         </nav>
     </div>
     <div class="step">
         <header>
-            <h3>{{greetings.message}}, {{name}}{{greetings.icon}}</h3>
+            <h3>{{greetings.message}}, {{current_user}}{{greetings.icon}}</h3>
             <button id="button-add-transaction">Adicionar transação</button>
         </header>
         <main id="dashboard">
@@ -67,9 +69,10 @@
             <span>Entrada</span>
         </button>
         <button class="menu-button" id="menu-button-withdraw">
-            <img class="icon" src="../static/css/assets/arrow-withdraw.svg" alt="Icone de saída de dinheiro">
+            <img class="icon" src="../static/css/assets/arrow-withdraw.svg" alt="Icone de entrada de dinheiro">
             <span>Saída</span>
         </button>
+        
     </nav>
     <div class="popup-wrapper">
         <div class="popup">
