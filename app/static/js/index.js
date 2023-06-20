@@ -2,7 +2,7 @@ buttonsRegister = document.querySelectorAll(".button-register");
 popupWrapper = document.querySelector(".popup-wrapper");
 popupLogin = document.getElementById("popup-login");
 popupRegister = document.getElementById("popup-register");
-buttonTurnRegister = document.querySelector(".button-turn-register");
+buttonTurnRegister = document.getElementById("button-turn-register");
 
 buttonsClose = document.querySelectorAll(".button-close");
 inputEmail = document.getElementById("input-email");

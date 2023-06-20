@@ -23,6 +23,20 @@
 .popup-title {
     margin-bottom: 20px;
 }
+.popup .button-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+    font-size: 1.3em;
+    font-weight: 600;
+    padding: 6px 9px;
+    border-radius: 50%;
+}
+.popup .button-close:hover {
+    transition: all 0.3s ease-in-out;
+    color: red;
+}
 .popup-form{
     width: 100%;
     display: flex;
@@ -36,13 +50,13 @@
     border: 1px solid rgba(0, 0, 0, 0.571);
     overflow: hidden;
 }
-.input-container .form-input{
+.input-container .input-transaction-form{
     outline: none;
     padding: 0.7em;
     flex-grow: 1;
 }
+
 .input-container .input-icon {
-    
     background-color: rgb(182, 182, 182);
     padding: 0.7em;
     border-radius: 5px 0 0 5px;
@@ -55,12 +69,14 @@
     align-items: flex-end;
     gap: 10px;
 }
-.button-container .button-form {
+.button-container .button-transaction-form {
     width: 25%;
     padding: 0.7em 1em;
     border-radius: 5px;
     color: white;
 }
+
+
 .button-container .button-save {
     background-color: green;
 }
@@ -78,6 +94,12 @@
     to {
         transform: none;
     }
+}
+.active {
+    display: flex;
+}
+.active-popup {
+    display: block;
 }
 
 

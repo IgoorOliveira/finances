@@ -1,8 +1,12 @@
-const transactions = [];
-const categories = []
+let transactions = [];
+let categories = []
 const menuButtons = document.querySelectorAll(".menu-button");
 const menuButtonWithdraw = document.getElementById("menu-button-withdraw");
 const menuButtonDeposit = document.getElementById("menu-button-deposit");
+const buttonSubmitTransaction = document.getElementById("button-submit-transaction");
+const buttonAccount = document.getElementById("button-account");
+const buttonCancel = document.querySelector(".button-cancel");
+const selectCategory = document.getElementById("my-select");
 
 async function fetchTransaction() {
     return await fetch("http://127.0.0.1:5000/transactions").then(result => result.json())
@@ -60,16 +64,31 @@ function createValue(valueTransaction, idType) {
 }
 
 function renderCardboard(transactions) {
+    const transaction = {
+        "idTransaction": transactions[0],
+        "valueTrasaction": transactions[1],
+        "idType": transactions[2],
+        "dateTransaction": transactions[3],
+        "idCategory": transactions[4],
+        "nameCategory": transactions[5]
+    }
+
     const cardboard = createCardboard();
-    const icon = createIcon(transactions[4]);
-    const title = createTitle(transactions[4]);
-    const value = createValue(transactions[1], transactions[2]);
+    const icon = createIcon(transaction.nameCategory);
+    const title = createTitle(transaction.nameCategory);
+    const value = createValue(transaction.valueTrasaction, transaction.idType);
     cardboard.append(icon, title, value);
     document.querySelector(".box-bottom").appendChild(cardboard);
 }
-function renderCategories(category) {
+function renderCategories(categories) {
+    const category = {
+        "idCategory": categories[0],
+        "name": categories[1],
+        "idType": categories[2]
+    }
     const option = document.createElement("option");
-    option.innerText = category[0]; 
+    option.innerText = category.name; 
+    option.value = category.idCategory;
     document.getElementById("my-select").append(option)
 }
 async function updateTransactions(){
@@ -80,20 +99,22 @@ async function updateTransactions(){
 async function updateCategories(id) {
     const result = await fetchCategories(id);
     categories.push(...result)
+    console.log(categories)
     categories.forEach(renderCategories)
-    console.log(result)
 }
 
 menuButtonDeposit.addEventListener("click", ()=>{
     document.querySelector(".menu-type").classList.remove("active");
     document.querySelector(".popup-wrapper").classList.add("active");
     updateCategories(1);
+    document.getElementById("input-type").value = 1;
     
 })
 menuButtonWithdraw.addEventListener("click", ()=>{
     document.querySelector(".menu-type").classList.remove("active");
     document.querySelector(".popup-wrapper").classList.add("active");
     updateCategories(2);
+    document.getElementById("input-type").value = 2;
 })
 
 document.getElementById("button-add-transaction").addEventListener("click", ()=>{
@@ -107,5 +128,14 @@ setTimeout(()=>{
     }
 
 }, 3000)
+
+buttonCancel.addEventListener("click", ()=>{
+    document.querySelector(".popup-wrapper").classList.remove("active");
+    while(selectCategory.firstChild) {
+        selectCategory.removeChild(selectCategory.firstChild)
+        console.log("entrei")
+    }
+    categories = []
+})
 
 document.addEventListener("DOMContentLoaded", updateTransactions);
