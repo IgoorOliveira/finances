@@ -11,6 +11,8 @@
     <title>Dashboard</title>
 </head>
 <body>
+
+    <!-- Left bar -->
     <div id="bar">
         <img id="bar-logo" src="../static/css/assets/logo-finances-2.png" alt="">
         <nav id="bar-nav">
@@ -19,7 +21,7 @@
                     <img src="../static/css/assets/icon-coin.svg" alt="Icone de moedas">
                     <span>Transações</span>
                 </button>
-                <button class="bar-nav-button">
+                <button id="button-account" class="bar-nav-button">
                     <img src="../static/css/assets/icon-account.svg" alt="Icone de um boneco">
                     <span>Perfil</span>
                 </button>
@@ -38,11 +40,15 @@
             </li>
         </nav>
     </div>
+
+    <!-- Header do dashboard-->
     <div class="step">
         <header>
             <h3>{{greetings.message}}, {{current_user}}{{greetings.icon}}</h3>
             <button id="button-add-transaction">Adicionar transação</button>
         </header>
+        
+        <!-- Dashboard -->
         <main id="dashboard">
             <div class="box box1">
                 <button class="button-extend">➔</button>
@@ -63,6 +69,8 @@
             </div>
         </main>
     </div>
+
+    <!-- Dropbox para escolher se a transação vai ser entrada ou saída -->
     <nav class="menu-type">
         <button class="menu-button" id="menu-button-deposit">
             <img class="icon" src="../static/css/assets/arrow-deposit.svg" alt="Icone de entrada de dinheiro">
@@ -74,35 +82,45 @@
         </button>
         
     </nav>
+    
     <div class="popup-wrapper">
+
+        <!-- Popup que contem o formulário transação-->
         <div class="popup">
-            <form action="" class="popup-form">
+            <form action="{{url_for('add_transaction')}}" method="post" class="popup-form">
                 <h2 class="popup-title">Transação</h2>
-                <label class="input-container" for="input-description">
-                    <img class="input-icon" id="input-description" src="../static/css/assets/icon-description.svg" alt="">
-                    <input type="text" name="title" class="form-input" placeholder="Descrição">
-                </label>
-                <label class="input-container" for="input-value">
-                    <img class="input-icon" src="../static/css/assets/dollar.svg" alt="">
-                    <input type="number" id="input-value" name="value" class="form-input" placeholder="Valor" min="0">
-                </label>
-                <label class="input-container" for="input-date-transaction">
-                    <img class="input-icon" id="input-date-transaction" src="../static/css/assets/calendar.svg" alt="">
-                    <input type="date" name="date-transaction" class="form-input" placeholder="Data de transação">
-                </label>
-                <label for="categories" id="input-categories" class="input-container">
+                <input name="idType" type="text" id="input-type"  class="input-transaction-form" required>
+                <div class="input-container">
+                    <img class="input-icon" src="../static/css/assets/icon-description.svg" alt="">
+                    <input name="title" type="text" id="input-description" class="input-transaction-form" placeholder="Descrição" required>
+                </div>
+                <div class="input-container">
+                    <img src="../static/css/assets/dollar.svg" class="input-icon" alt="">
+                    <input name="value" type="number" id="input-value" class="input-transaction-form" placeholder="Valor" min="0" required>
+                </div>
+                <div class="input-container">
+                    <img src="../static/css/assets/calendar.svg" class="input-icon" alt="">
+                    <input type="date" name="dateTransaction" id="input-date-transaction" class="input-transaction-form" placeholder="Data de transação" required>
+                </div>
+                <div id="input-categories" class="input-container">
                     <img class="input-icon" src="../static/css/assets/icon-categories.svg" alt="Icone de categorias">
-                    <select name="" id="my-select" class="form-input" >
+                    <select id="my-select" name="idCategory" class="input-transaction-form">
                         <option value="" selected hidden>Categoria</option>
                     </select>
-                </label>
+                </div>
+                
                 <div class="button-container">
-                    <button type="menu" class="button-form button-cancel">Cancelar</button>
-                    <button type="submit" class="button-form button-save">Salvar</button>
+                    <button type="reset" class="button-transaction-form button-cancel">Cancelar</button>
+                    <button type="submit" id="button-submit-transaction" class="button-transaction-form button-save">Salvar</button>
                 </div>
             </form>
         </div>
+
+        <!-- Popup que contem formulário para trocar as informações pessoais-->
+        
     </div>
+
+    <!-- Alerta que retorna check/error -->
     {% with messages = get_flashed_messages() %}
         {% if messages %}
         {% for message in messages %}

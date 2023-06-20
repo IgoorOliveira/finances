@@ -18,7 +18,7 @@ class Transaction:
                 "validation": True}
     
     def getTransactions(self):
-        self.cursor.execute("SELECT t.idTransaction, t.value, t.idType, t.data, c.name from 'transaction' t inner join category c on t.idCategory = c.idCategory;")
+        self.cursor.execute("SELECT t.idTransaction, t.value, t.idType, t.data, c.idCategory, c.name from 'transaction' t inner join category c on t.idCategory = c.idCategory;")
         return self.cursor.fetchall()
     
     def delete_transaction(self, idTransaction):

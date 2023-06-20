@@ -17,5 +17,5 @@ class Category:
                     "validation": False}
         
     def get_categories(self, id_type):
-        self.cursor.execute("SELECT name FROM category WHERE idType = ?;", (id_type, ))
+        self.cursor.execute("SELECT * FROM category WHERE idType = ?;", (id_type, ))
         return self.cursor.fetchall()

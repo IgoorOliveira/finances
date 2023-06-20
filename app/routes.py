@@ -80,16 +80,29 @@ def logout():
     return redirect("/")
 
 @app.route("/transactions")
+@login_required
 def get_transactions():
     connection = create_database(database)
     transaction = Transaction(connection)
    
     return jsonify(transaction.getTransactions())
 
-@app.route("/transaction/add")
+@app.route("/transactions/add", methods=["POST"], endpoint="add_transaction")
+@login_required
 def create_transaction():
     connection = create_database(database)
     transaction = Transaction(connection)
+
+    if request.method == "POST":
+        answerTransaction = transaction.create_transaction(request.form["value"], request.form["dateTransaction"], current_user.id, request.form["idCategory"], request.form["idType"])
+        flash({"answer": answerTransaction["message"],
+                "validation": True})
+        return redirect("/dashboard")
+    
+    flash({"answer": answerTransaction["message"],
+                "validation": False})
+    return redirect("/dashboard")
+    
 
 @app.route("/transaction/delete")
 def delete_transaction():
