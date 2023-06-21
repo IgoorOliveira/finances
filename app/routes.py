@@ -55,12 +55,12 @@ def login():
         email = request.form["email"]
         password = request.form["password"]
         answerAccount = account.login(email, password)
-
         if answerAccount["validation"]:
             tuplaAccount = account.get_account_by_email(email)
             login_user(Object_account(tuplaAccount[0], tuplaAccount[1], tuplaAccount[2]))
             flash({"answer": answerAccount["message"],
                     "validation": True})
+           
             return redirect(url_for("dashboard"))
         flash({"answer": answerAccount["message"],
                 "validation": False})
@@ -85,7 +85,7 @@ def get_transactions():
     connection = create_database(database)
     transaction = Transaction(connection)
    
-    return jsonify(transaction.getTransactions())
+    return jsonify(transaction.getTransactions(current_user.id))
 
 @app.route("/transactions/add", methods=["POST"], endpoint="add_transaction")
 @login_required
@@ -94,7 +94,7 @@ def create_transaction():
     transaction = Transaction(connection)
 
     if request.method == "POST":
-        answerTransaction = transaction.create_transaction(request.form["value"], request.form["dateTransaction"], current_user.id, request.form["idCategory"], request.form["idType"])
+        answerTransaction = transaction.create_transaction(request.form["description"],request.form["value"], request.form["dateTransaction"], current_user.id, request.form["idCategory"], request.form["idType"])
         flash({"answer": answerTransaction["message"],
                 "validation": True})
         return redirect("/dashboard")
@@ -103,17 +103,49 @@ def create_transaction():
                 "validation": False})
     return redirect("/dashboard")
     
-
-@app.route("/transaction/delete")
-def delete_transaction():
+@app.route("/transactions/update/<idTransaction>", methods=["POST"], endpoint="update_transaction")
+@login_required
+def update_transaction(idTransaction):
     connection = create_database(database)
     transaction = Transaction(connection)
+
+    if request.method == "POST":
+        answerTransaction = transaction.update_transaction(request.form["description"],request.form["value"], request.form["dateTransaction"], current_user.id, request.form["idCategory"], request.form["idType"], idTransaction)
+        flash({"answer": answerTransaction["message"],
+                "validation": True})
+        return redirect("/dashboard")
+    flash({"answer": "Informações inválidas!",
+                "validation": False})
+    return redirect("/dashboard")
+
+
+@app.route("/transactions/delete/<idTransation>", endpoint="delete_transaction")
+def delete_transaction(idTransation):
+    connection = create_database(database)
+    transaction = Transaction(connection)
+
+    if idTransation:
+        answerTransaction = transaction.delete_transaction(idTransation)
+        flash({"answer": answerTransaction["message"],
+                "validation": True})
+        return redirect("/dashboard")
+    
+    flash({"answer": "Informações inválidas!",
+                "validation": False})
+    return redirect("/dashboard")
 
 @app.route("/categories/<idType>")
 def get_categories(idType):
     connection = create_database(database)
     categories = Category(connection)
     return jsonify(categories.get_categories(idType))
+@app.route("/grafic1")
+@login_required
+def get_grafic():
+    connection = create_database(database)
+    transaction = Transaction(connection)
+    return jsonify(transaction.get_grafic1(current_user.id))
+
 
 
 

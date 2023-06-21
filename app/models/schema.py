@@ -35,6 +35,7 @@ def create_database(base):
     """)
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS "transaction"("idTransaction" INTEGER NOT NULL,
+                                              "description" TEXT NOT NULL,
                                               "value" REAL NOT NULL,
                                               "data" TEXT NOT NULL,
                                               "idAccount" INTEGER NOT NULL,

@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="{{url_for('static', filename='css/popup.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/alert.css')}}">
     <script src="{{url_for('static', filename='js/dashboard.js')}}" defer></script>
+    <script src="{{url_for('static', filename='js/grafic.js')}}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Dashboard</title>
 </head>
 <body>
@@ -17,13 +19,13 @@
         <img id="bar-logo" src="../static/css/assets/logo-finances-2.png" alt="">
         <nav id="bar-nav">
             <li class="bar-nav-top">
-                <button class="bar-nav-button">
+                <button class="bar-nav-button button-show-home">
+                    <img src="../static/css/assets/icon-home.svg" alt="Icone de casa">
+                    <span>Home</span>
+                </button>
+                <button class="bar-nav-button button-show-transactions">
                     <img src="../static/css/assets/icon-coin.svg" alt="Icone de moedas">
                     <span>Transações</span>
-                </button>
-                <button id="button-account" class="bar-nav-button">
-                    <img src="../static/css/assets/icon-account.svg" alt="Icone de um boneco">
-                    <span>Perfil</span>
                 </button>
             </li>
             <li id="bar-nav-bottom">
@@ -42,38 +44,47 @@
     </div>
 
     <!-- Header do dashboard-->
-    <div class="step">
+    <main id="main">
         <header>
             <h3>{{greetings.message}}, {{current_user}}{{greetings.icon}}</h3>
             <button id="button-add-transaction">Adicionar transação</button>
         </header>
         
         <!-- Dashboard -->
-        <main id="dashboard">
+        <div class=" main-dashboard main-step1 active">
             <div class="box container-transactions">
                 <h3 class="box-title">Carteira</h3>
-                <h1 id="balance">R$1000,00</h1>
+                <h1 id="balance"></h1>
                 <div id="container-cardboard-balance">
                     <div class="cardboard-balance cardboard1-balance">
                         <span class="cardboard-balance-icon"></span>
-                        <p class="cardboard-balance-text">Saída</p>
-                        <p class="cardboard-balance-value">R$500,00</p>
+                        <p class="cardboard-balance-text">Entrada</p>
+                        <p class="cardboard-balance-value" id="balance-credit"></p>
                     </div>
                     <div class="cardboard-balance cardboard2-balance">
                         <span class="cardboard-balance-icon"></span>
                         <p class="cardboard-balance-text">Saída</p>
-                        <p class="cardboard-balance-value">R$500,00</p>
+                        <p class="cardboard-balance-value" id="balance-withdraw"></p>
                     </div>
                 </div>
                 <h3>Atividades recentes</h3>
                 <div class="box-transactions"></div>
             </div>
             <div class="container-grafics">
-                <div class="box grafic1"></div>
-                <div class="box grafic2"></div>
+                <div class="box grafic1">
+                    <h3 class="box-title">Grafico 1</h3>
+                    <canvas id="grafic1"></canvas>
+                </div>
+                <div class="box grafic2">
+                    <h3 class="box-title">Grafico 2</h3>
+                </div>
             </div>
-        </main>
-
+        </div>
+        <div class="main-all-transactions main-step2">
+            <div class="box box-all-transactions">
+            </div>
+        </div>
+    </main>
     <!-- Dropbox para escolher se a transação vai ser entrada ou saída -->
     <nav class="menu-type">
         <button class="menu-button" id="menu-button-deposit">
@@ -88,15 +99,26 @@
     </nav>
     
     <div class="popup-wrapper">
-
+        <div class="popup step1" id="popup-welcome">
+            <h1>Bem-vindo!</h1>
+            <img src="../static/css/assets/icon-welcome.png" alt="">
+            <button type="button">Continuar</button>
+        </div>
+        <div class="popup step2" id="popup-balance">
+            <h1>Informe seu saldo atual</h1>
+            <form action="">
+                <input name="balance" type="number" id="initialBalance" min="0" placeholder="Saldo atual">
+                <button type="submit">Concluir</button>
+            </form>
+        </div>
         <!-- Popup que contem o formulário transação-->
         <div class="popup">
-            <form action="{{url_for('add_transaction')}}" method="post" class="popup-form">
+            <form action="" method="post" class="popup-form form-transaction">
                 <h2 class="popup-title">Transação</h2>
-                <input name="idType" type="text" id="input-type"  class="input-transaction-form" required>
+                <input name="idType" type="text" id="input-type" class="input-transaction-form" required>
                 <div class="input-container">
                     <img class="input-icon" src="../static/css/assets/icon-description.svg" alt="">
-                    <input name="title" type="text" id="input-description" class="input-transaction-form" placeholder="Descrição" required>
+                    <input name="description" type="text" id="input-description" class="input-transaction-form" placeholder="Descrição" max="20" required>
                 </div>
                 <div class="input-container">
                     <img src="../static/css/assets/dollar.svg" class="input-icon" alt="">

@@ -1,5 +1,7 @@
 .popup-wrapper {
     position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
 
@@ -69,13 +71,12 @@
     align-items: flex-end;
     gap: 10px;
 }
-.button-container .button-transaction-form {
+.button-transaction-form {
     width: 25%;
     padding: 0.7em 1em;
     border-radius: 5px;
     color: white;
 }
-
 
 .button-container .button-save {
     background-color: green;
@@ -83,9 +84,7 @@
 .button-container .button-cancel {
     background-color: red;
 }
-.active {
-    display: flex;
-}
+
 @keyframes effect-popup {
     from {
         transform: translateY(-100%);
@@ -95,11 +94,48 @@
         transform: none;
     }
 }
+#popup-welcome, #popup-balance {
+    display: none;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+}
+:is(#popup-welcome, #popup-balance) h1{
+    font-size: 1.7em;
+}
+#popup-welcome img {
+    width: 180px;
+    height: 180px;
+}
+:is(#popup-welcome, #popup-balance) button {
+    width: 100%;
+    border-radius: 5px;
+    background-color: #0f3c17;
+    padding: 1em;
+    color: white;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);  
+}
+#popup-balance form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+}
+#popup-balance input {
+    outline: none;
+    border: 1px solid black;
+    width: 100%;
+    border-radius: 5px;
+    padding: 0.8em;
+}
+
 .active {
     display: flex;
 }
 .active-popup {
     display: block;
 }
+
+
 
 

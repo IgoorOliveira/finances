@@ -17,4 +17,19 @@ class Users:
     self.cursor.execute("SELECT u.fullname FROM users u INNER JOIN account a ON u.idAccount = a.idAccount WHERE a.idAccount = ?;", (idAccount, ))
     return self.cursor.fetchone()[0]
   
+  def consult_user(self):
+      self.cursor.execute("SELECT * FROM users;")
+      return self.cursor.fetchall()
+
+  def update_user(self, fullname, idUser):
+      self.cursor.execute("UPDATE users SET fullname = ? WHERE idUser = ?", (fullname, idUser))
+      self.conn.commit()
+      return{"message": "Dados de usuário atualizados!",
+              "validation": True}
+       
+  def delete_user(self, idUser):
+     self.cursor.execute("DELETE * FROM users WHERE idUser = ?;", (idUser, ))
+     return{"message": "Usuário deletado com sucesso!",
+              "validation": True}
+  
     

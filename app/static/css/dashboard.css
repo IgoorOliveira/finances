@@ -53,7 +53,7 @@ body {
     transition: all 0.2s ease-in-out;
     background-color: #0f3c17;
 }
-.step {
+#main {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -74,13 +74,14 @@ header {
     color: white;
     border-radius: 5px;
 }
-#dashboard {
+.main-dashboard {
     width: 100%;
     height: 100vh;
     
-    display: flex;
+    display: none;
     gap: 20px;
     padding: 2em;
+    overflow: hidden;
 }
 
 .container-transactions, .container-grafics{
@@ -151,14 +152,21 @@ header {
 }
 ::-webkit-scrollbar {
     background-color: #94000000;
+    width: 10px;
 }
 ::-webkit-scrollbar {
     background-color: #94000000;
 }
 ::-webkit-scrollbar-thumb {
-    background-color: #3d0606;
-  }
+    background-color: #0000002b;
+    border-radius: 20px;
+}
 
+.grafic1, .grafic2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .cardboard {
     cursor: pointer;
@@ -166,20 +174,13 @@ header {
     background-color: rgb(244, 243, 243);
     border-radius: 5px;
     box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
-    padding: 0.5em 1em;
+    padding: 1em 2em;
     display: flex;
     justify-content: space-between;
     align-items: center;
+
 }
-.cardboard:active {
-    transition: all 0.3s ease-in-out;
-    flex-grow: 1;
-    padding: 1em;
-}
-.box-bottom:active .cardboard:not(:active) {
-    transition: all 0.3s ease-in-out;
-    display: none;
-}
+
 .transaction-deposit {
     color: green;
 }
@@ -221,5 +222,49 @@ header {
 }
 #input-type {
     display: none;
+}
+
+.main-all-transactions {
+    width: 100%;
+    height: 100vh;
+    
+    display: none;
+    gap: 20px;
+    padding: 2em;
+    background-color: #0f3c17;
+    overflow: hidden;
+}
+.box-all-transactions {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    overflow: scroll;
+    width: 100%;
+}
+.cardboard-transaction {
+    width: 80%;
+    background-color: rgb(244, 243, 243);
+    border-radius: 5px;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
+    padding: 1em 2em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.container-button-transaction {
+    display: flex;
+    gap: 10px;
+}
+:is(.button-edit-transaction, .button-delete-transaction) {
+    padding: 0.7em 1em;
+    border-radius: 5px;
+    color: white;
+}
+.button-edit-transaction {
+    background-color: #2235B3;
+}
+.button-delete-transaction {
+    background-color: red;
 }
 

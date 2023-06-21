@@ -41,11 +41,28 @@ class Account:
             "validation": True}
     return {"message": "Login não realizado!",
             "validation": False}
+  
   def lastRowId(self):
     return self.cursor.lastrowid
+  
   def get_account_by_email(self, email):
     self.cursor.execute("SELECT a.idAccount, a.email, u.fullname FROM account a INNER JOIN users u ON a.idAccount = u.idAccount WHERE a.email = ?;", (email,))
     return self.cursor.fetchone()
+  
+  def update_account(self, email, password, idAccount):
+    if(self.is_email_valid(email) and self.is_password_valid(password)):
+      self.cursor.execute("UPDATE account SET email = ?, password = ? WHERE idAccount = ?;", (email, password, idAccount))
+      self.conn.commit()
+      return{"message": "Dados Atualizados!",
+             "validation": True}
+    return{"message": "Dados Inválidos!",
+           "validation": False}
+  
+  def delete_account(self, idAccount):
+    self.cursor.execute("DELETE FROM account WHERE idAccount = ?", (idAccount,))
+    self.conn.commit()
+    return{"Message": "Conta deletada!",
+           "validation": True}
   
 
 class Object_account(UserMixin):
@@ -64,6 +81,7 @@ class Object_account(UserMixin):
       return None
   def get_id(self):
       return str(self.id)
-
+  
+  
 
   

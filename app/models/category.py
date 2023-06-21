@@ -19,3 +19,20 @@ class Category:
     def get_categories(self, id_type):
         self.cursor.execute("SELECT * FROM category WHERE idType = ?;", (id_type, ))
         return self.cursor.fetchall()
+    
+    def update_categories(self, idCategory, name):
+        try:
+            self.cursor.execute("UPDATE idType SET name = ? WHERE idType = ?;", (name, idCategory))
+            self.conn.commit()
+        except IntegrityError:
+            return{"message": "Categoria Já cadastrada",
+               "validation": False}
+        else:
+            return{"message": "Categoria Atualizada!",
+                "validation": True}
+    
+    def delete_categories(self, idCategory):
+        self.cursor.execute("DELETE * FROM category WHERE idCategoty = ?;", (idCategory, ))
+        self.conn.commit()
+        return{"message": "Categotia Deletada!",
+               "validation": True}
