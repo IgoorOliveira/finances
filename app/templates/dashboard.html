@@ -50,25 +50,29 @@
         
         <!-- Dashboard -->
         <main id="dashboard">
-            <div class="box box1">
-                <button class="button-extend">➔</button>
-                <div class="box-top">
-                    <h2 class="box-title">Carteira</h2>
-                    <div id="box-balance">R$1000,00</div>
-                    <input type="text" id="input-filter-transaction" placeholder="Procurar transação">
+            <div class="box container-transactions">
+                <h3 class="box-title">Carteira</h3>
+                <h1 id="balance">R$1000,00</h1>
+                <div id="container-cardboard-balance">
+                    <div class="cardboard-balance cardboard1-balance">
+                        <span class="cardboard-balance-icon"></span>
+                        <p class="cardboard-balance-text">Saída</p>
+                        <p class="cardboard-balance-value">R$500,00</p>
+                    </div>
+                    <div class="cardboard-balance cardboard2-balance">
+                        <span class="cardboard-balance-icon"></span>
+                        <p class="cardboard-balance-text">Saída</p>
+                        <p class="cardboard-balance-value">R$500,00</p>
+                    </div>
                 </div>
-                <div class="box-bottom">
-                    <h3>Atividades recentes</h3>
-                </div>
+                <h3>Atividades recentes</h3>
+                <div class="box-transactions"></div>
             </div>
-            <div class="box">
-                <button class="button-extend">➔</button>
-            </div>
-            <div class="box">
-                <button class="button-extend">➔</button>
+            <div class="container-grafics">
+                <div class="box grafic1"></div>
+                <div class="box grafic2"></div>
             </div>
         </main>
-    </div>
 
     <!-- Dropbox para escolher se a transação vai ser entrada ou saída -->
     <nav class="menu-type">

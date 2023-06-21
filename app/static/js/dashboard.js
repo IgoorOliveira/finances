@@ -78,7 +78,7 @@ function renderCardboard(transactions) {
     const title = createTitle(transaction.nameCategory);
     const value = createValue(transaction.valueTrasaction, transaction.idType);
     cardboard.append(icon, title, value);
-    document.querySelector(".box-bottom").appendChild(cardboard);
+    document.querySelector(".box-transactions").appendChild(cardboard);
 }
 function renderCategories(categories) {
     const category = {
