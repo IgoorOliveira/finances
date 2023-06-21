@@ -1,5 +1,5 @@
 # finances
 
-<strong>pip install flask</strong>
-<strong>pip install flask-login</strong>
-<strong>npm install chart.js</strong>
+<h2><strong>pip install flask</strong></h2>
+<p><strong>pip install flask-login</strong></p>
+<p><strong>npm install chart.js</strong></p>
