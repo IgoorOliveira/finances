@@ -17,8 +17,8 @@ class Transaction:
         return {"message": "Transação cadastrada com sucesso!",
                 "validation": True}
     
-    def getTransactions(self):
-        self.cursor.execute("SELECT t.idTransaction, t.value, t.idType, t.data, c.idCategory, c.name from 'transaction' t inner join category c on t.idCategory = c.idCategory;")
+    def getTransactions(self, idAccount):
+        self.cursor.execute("SELECT t.idTransaction, t.value, t.idType, t.data, c.idCategory, c.name from 'transaction' t inner join category c on t.idCategory = c.idCategory WHERE t.idAccount = ?;", (idAccount, ))
         return self.cursor.fetchall()
     
     def delete_transaction(self, idTransaction):
@@ -26,3 +26,7 @@ class Transaction:
         self.conn.commit()
         return {"message": "Transação deletada com sucesso!",
                 "validation": True}
+    
+    def get_grafic1(self, idAccount):
+        self.cursor.execute("SELECT c.name, t.value FROM 'transaction' t INNER JOIN category c ON t.idCategory = c.idCategory GROUP BY c.name HAVING t.idAccount = ? and t.idType = 2", (idAccount, ))
+        return self.cursor.fetchall()

@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="{{url_for('static', filename='css/popup.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/alert.css')}}">
     <script src="{{url_for('static', filename='js/dashboard.js')}}" defer></script>
+    <script src="{{url_for('static', filename='js/grafic.js')}}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Dashboard</title>
 </head>
 <body>
@@ -52,25 +54,30 @@
         <main id="dashboard">
             <div class="box container-transactions">
                 <h3 class="box-title">Carteira</h3>
-                <h1 id="balance">R$1000,00</h1>
+                <h1 id="balance"></h1>
                 <div id="container-cardboard-balance">
                     <div class="cardboard-balance cardboard1-balance">
                         <span class="cardboard-balance-icon"></span>
                         <p class="cardboard-balance-text">Saída</p>
-                        <p class="cardboard-balance-value">R$500,00</p>
+                        <p class="cardboard-balance-value" id="balance-credit"></p>
                     </div>
                     <div class="cardboard-balance cardboard2-balance">
                         <span class="cardboard-balance-icon"></span>
                         <p class="cardboard-balance-text">Saída</p>
-                        <p class="cardboard-balance-value">R$500,00</p>
+                        <p class="cardboard-balance-value" id="balance-withdraw"></p>
                     </div>
                 </div>
                 <h3>Atividades recentes</h3>
                 <div class="box-transactions"></div>
             </div>
             <div class="container-grafics">
-                <div class="box grafic1"></div>
-                <div class="box grafic2"></div>
+                <div class="box grafic1">
+                    <h3 class="box-title">Grafico 1</h3>
+                    <canvas id="grafic1"></canvas>
+                </div>
+                <div class="box grafic2">
+                    <h3 class="box-title">Grafico 2</h3>
+                </div>
             </div>
         </main>
 
@@ -88,7 +95,18 @@
     </nav>
     
     <div class="popup-wrapper">
-
+        <div class="popup step1" id="popup-welcome">
+            <h1>Bem-vindo!</h1>
+            <img src="../static/css/assets/icon-welcome.png" alt="">
+            <button type="button">Continuar</button>
+        </div>
+        <div class="popup step2" id="popup-balance">
+            <h1>Informe seu saldo atual</h1>
+            <form action="">
+                <input name="balance" type="number" id="initialBalance" min="0" placeholder="Saldo atual">
+                <button type="submit">Concluir</button>
+            </form>
+        </div>
         <!-- Popup que contem o formulário transação-->
         <div class="popup">
             <form action="{{url_for('add_transaction')}}" method="post" class="popup-form">

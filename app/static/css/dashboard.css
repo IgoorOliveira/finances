@@ -81,6 +81,7 @@ header {
     display: flex;
     gap: 20px;
     padding: 2em;
+    overflow: hidden;
 }
 
 .container-transactions, .container-grafics{
@@ -151,14 +152,21 @@ header {
 }
 ::-webkit-scrollbar {
     background-color: #94000000;
+    width: 10px;
 }
 ::-webkit-scrollbar {
     background-color: #94000000;
 }
 ::-webkit-scrollbar-thumb {
-    background-color: #3d0606;
-  }
+    background-color: #0000002b;
+    border-radius: 20px;
+}
 
+.grafic1, .grafic2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .cardboard {
     cursor: pointer;
@@ -169,17 +177,9 @@ header {
     padding: 0.5em 1em;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+
 }
-.cardboard:active {
-    transition: all 0.3s ease-in-out;
-    flex-grow: 1;
-    padding: 1em;
-}
-.box-bottom:active .cardboard:not(:active) {
-    transition: all 0.3s ease-in-out;
-    display: none;
-}
+
 .transaction-deposit {
     color: green;
 }

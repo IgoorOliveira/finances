@@ -28,6 +28,12 @@ const iconCategories ={
     "Outros": "outhers"
 }
 
+const formater = Intl.NumberFormat("pt-BR", {
+    compactDisplay: "long",
+    currency: "BRL",
+    style: "currency"
+})
+
 function createCardboard() {
     const cardboard = document.createElement("div");
     cardboard.classList.add("cardboard");
@@ -57,35 +63,42 @@ function createIcon(nameCategory) {
 function createValue(valueTransaction, idType) {
     const value = document.createElement("p");
     color = idType == 1? "green": "red"
-    value.innerText = `R$${valueTransaction}`;
+    value.innerText = formater.format(valueTransaction);
     value.style.color = color;
     value.style.fontWeight = 800
     return value;
 }
-
-function renderCardboard(transactions) {
+function arrayToObjectTransaction(transactions) {
     const transaction = {
         "idTransaction": transactions[0],
-        "valueTrasaction": transactions[1],
+        "valueTransaction": transactions[1],
         "idType": transactions[2],
         "dateTransaction": transactions[3],
         "idCategory": transactions[4],
         "nameCategory": transactions[5]
     }
-
-    const cardboard = createCardboard();
-    const icon = createIcon(transaction.nameCategory);
-    const title = createTitle(transaction.nameCategory);
-    const value = createValue(transaction.valueTrasaction, transaction.idType);
-    cardboard.append(icon, title, value);
-    document.querySelector(".box-transactions").appendChild(cardboard);
+    return transaction
 }
-function renderCategories(categories) {
+function arrayToObjectCategory(categories) {
     const category = {
         "idCategory": categories[0],
         "name": categories[1],
         "idType": categories[2]
     }
+    return category
+}
+
+function renderCardboard(arrayTransaction) {
+    const transaction = arrayToObjectTransaction(arrayTransaction)
+    const cardboard = createCardboard();
+    const icon = createIcon(transaction.nameCategory);
+    const title = createTitle(transaction.nameCategory);
+    const value = createValue(transaction.valueTransaction, transaction.idType);
+    cardboard.append(icon, title, value);
+    document.querySelector(".box-transactions").appendChild(cardboard);
+}
+function renderCategories(arrayCategory) {
+    const category = arrayToObjectCategory(arrayCategory)
     const option = document.createElement("option");
     option.innerText = category.name; 
     option.value = category.idCategory;
@@ -94,13 +107,45 @@ function renderCategories(categories) {
 async function updateTransactions(){
     let result = await fetchTransaction();
     transactions.push(...result);
-    transactions.forEach(renderCardboard);
+    let x = transactions.length -1
+    for(x; x >= 0; x--) {
+        renderCardboard(transactions[x])
+    }
+    updateBalance()
 }
 async function updateCategories(id) {
     const result = await fetchCategories(id);
     categories.push(...result)
-    console.log(categories)
     categories.forEach(renderCategories)
+}
+
+function updateBalance() {
+    const totalBalance = document.getElementById("balance");
+    const creditBalance = document.getElementById("balance-credit")
+    const withdrawBalance = document.getElementById("balance-withdraw")
+    console.log(withdrawBalance)
+    let dashboardBalance = {
+        "balance": 0,
+        "credit": 0,
+        "withdraw": 0
+    }
+    transactions.forEach(transaction =>{
+        const {idType, valueTransaction} = arrayToObjectTransaction(transaction)
+        console.log(idType)
+        if(idType == 1) {
+            dashboardBalance.balance += valueTransaction
+            dashboardBalance.credit += valueTransaction
+        }
+        else {
+            dashboardBalance.balance -= valueTransaction
+            dashboardBalance.withdraw += valueTransaction
+        }
+    })
+    totalBalance.innerText = formater.format(dashboardBalance.balance)
+    creditBalance.innerText = formater.format(dashboardBalance.credit)
+    withdrawBalance.innerText = formater.format(dashboardBalance.withdraw)
+    
+
 }
 
 menuButtonDeposit.addEventListener("click", ()=>{
@@ -137,5 +182,11 @@ buttonCancel.addEventListener("click", ()=>{
     }
     categories = []
 })
+
+
+function turnStep(currentStep, nextStep) {
+    document.querySelector(".step" + currentStep).classList.remove("active-popup");
+    document.querySelector(".step" + nextStep).classList.add("active-popup");
+}
 
 document.addEventListener("DOMContentLoaded", updateTransactions);
