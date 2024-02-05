@@ -13,10 +13,10 @@
     <body>
         <!-- Criação do header na página inicial -->
         <header>
-            <h1 id="header-title">Finanças</h1>
+            <h1 id="header-title">Finance</h1>
             <nav>
-                <button id="button-login">Login</button>
-                <button class="standard-button button-register">Registrar-se</button>
+                <button id="button-login">Entrar</button>
+                <button class="standard-button button-register">Registrar</button>
             </nav>
         </header>
 
@@ -51,11 +51,11 @@
     
             <!-- Criação do popup de registro -->
             <div class="popup step2" id="popup-register">
-                <h2 class="popup-title">Register</h2>
+                <h2 class="popup-title">Registrar</h2>
                 <button class="button-close" data-attribute="popup-register">x</button>
                 <form class="popup-form" action="{{url_for('register')}}" method="post">
-                    <input name="first-name" type="text" id="input-first-name" class="form-input"  placeholder="First name">
-                    <input name="last-name" type="text" id="input-last-name" class="form-input" placeholder="Last name">
+                    <input name="first-name" type="text" id="input-first-name" class="form-input"  placeholder="Nome">
+                    <input name="last-name" type="text" id="input-last-name" class="form-input" placeholder="Sobrenome">
                     <input name="date-birthday" type="date" id="input-date-birthday" class="form-input" placeholder="Data de nascimento" >
                     <input name="email" type="email" class="form-input" placeholder="Email">
                     <span class="email-error"></span>

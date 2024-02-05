@@ -13,8 +13,9 @@ body {
 }
 
 header {
-    background-color: var(--second-color);
+    background-color: #080808;
     padding: 1em 2em;
+    border-bottom: 1px solid rgba(145, 142, 142, 0.1);
 
     display: flex;
     justify-content: space-between;
@@ -23,7 +24,7 @@ header {
 }
 #header-title {
     cursor: pointer;
-    color: var(--primary-color);
+    color: var(--second-color);
 }
 header > nav {
     display: flex;
@@ -33,7 +34,7 @@ header > nav {
 .standard-button {
     background-color: var(--primary-color);
     color: var(--second-color);
-
+    font-weight: 600;
     padding: 1em;
     border-radius: 5px;
     box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
@@ -41,6 +42,8 @@ header > nav {
 #button-login {
     position: relative;
     overflow: hidden;
+    font-weight: 600;
+    color: white;
     padding: 1em;
 }
 #button-login::before {
@@ -61,7 +64,7 @@ header > nav {
 main {
     position: relative;
     width: 100%;
-    background-color: #1d5627;
+    background-color: #080808;
     flex-grow: 1;
 }
 .img-coins {
@@ -73,18 +76,19 @@ main {
     position: absolute;
     right: 7em;
     top: 10em;
-    width: 450px;
+    width: 700px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 #effect-text {
-    font-size: 2em;
+    color: #FFFFFF;
+    font-size: 2.5em;
 }
 #effect-text > span {
     color: var(--effect-color);
 }
 .content-wrapper p {
-    color: #ffffff;
     margin-top: 20px;
+    color:#b6b6b6;
     font-size: 1.2em;
 }
 .button-register-2 {
@@ -148,7 +152,7 @@ main {
     border: 1px solid black;
     width: 100%;
     border-radius: 5px;
-    padding: 0.8em;
+    padding: 1em;
 }
 
 .form-button {

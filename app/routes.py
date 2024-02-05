@@ -55,6 +55,7 @@ def login():
         email = request.form["email"]
         password = request.form["password"]
         answerAccount = account.login(email, password)
+        print(answerAccount)
         if answerAccount["validation"]:
             tuplaAccount = account.get_account_by_email(email)
             login_user(Object_account(tuplaAccount[0], tuplaAccount[1], tuplaAccount[2]))
